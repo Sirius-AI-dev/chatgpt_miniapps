@@ -1,0 +1,50 @@
+Request:
+ {
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "clientInfo": {
+      "name": "openai-mcp",
+      "version": "1.0.0"
+    },
+    "capabilities": {},
+    "protocolVersion": "2025-03-26"
+  },
+  "jsonrpc": "2.0"
+}
+
+
+Response:
+{
+  "id": 1,
+  "result": {
+    "modes": [
+      "chat"
+    ],
+    "scope": "project",
+    "metadata": {
+      "author": "@Author",
+      "created_at": "2025-10-15T10:00:00Z"
+    },
+    "serverInfo": {
+      "name": "my-mcp",
+      "title": "My MCP Server",
+      "version": "1.0.0"
+    },
+    "description": "Detailed description of my MCP",
+    "capabilities": {
+      "tools": {
+        "listChanged": false
+      },
+      "logging": {},
+      "prompts": {
+        "listChanged": false
+      },
+      "resources": {
+        "listChanged": false
+      }
+    },
+    "protocolVersion": null
+  },
+  "jsonrpc": "2.0"
+}

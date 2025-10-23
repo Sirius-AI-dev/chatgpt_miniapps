@@ -1,0 +1,54 @@
+Request:
+ {
+  "id": 1,
+  "method": "tools/list",
+  "params": {
+    "name": "get_context_for_project",
+    "_meta": {
+      "openai/locale": "en-US",
+      "openai/subject": "v1/r1tgNhS1Bzy5OWd5K4mufx8QZYtcOLy2K5FZ1R764iAPvN2grQOXLL",
+      "openai/userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+      "openai/userLocation": {
+        "city": "New York",
+        "region": "New York",
+        "country": "US",
+        "timezone": "America/NewYork"
+      }
+    },
+    "arguments": {
+      "user_query": "My question",
+      "user_session_id": "1234"
+    }
+  },
+  "jsonrpc": "2.0"
+}
+
+
+Response:
+{
+  "id": 1,
+  "result": {
+    "_meta": {
+      "openai/outputTemplate": "ui://widget/my_app.html",
+      "openai/widgetAccessible": true,
+      "openai/resultCanProduceWidget": true,
+      "openai/toolInvocation/invoked": "Ready",
+      "openai/toolInvocation/invoking": "Searching for content..."
+    },
+    "content": [
+      {
+        "text": "{\"app\": {\"picture_url\": \"https://example.com/assets/my_picture.png\", \"user_session_id\": \"0cade95cee44c7461a22762b114cabe8\"}, \"followup\": \"INSTRUCTIONS FOR THE ASSISTANT:\\n  - If \\\"app.user_session_id\\\" attribute is not null, store it in the widget state, and then send this user_session_id in each request to this tool.\\n  - Add one or several related links, with their description, if the link is relevant to your response. Don't add any of this link if it doesn't correspond to the response content.\\n  - Keep the tone learner-friendly and approachable. Stay concise while ensuring the user feels supported. Maintain an encouraging tone.\\n  - End the response with a relevant follow up question.\"}",
+        "type": "text"
+      }
+    ],
+    "structuredContent": {
+      "app": {
+        "picture_url": "https://example.com/assets/my_picture.png",
+        "user_session_id": "0cade95cee44c7461a22762b114cabe8"
+      },
+      "followup": "INSTRUCTIONS FOR THE ASSISTANT:\n  - Add one or several related links, with their description, if the link is relevant to your response. Don't add any of this link if it doesn't correspond to the response content.\n  - Keep the tone learner-friendly and approachable. Stay concise while ensuring the user feels supported. Maintain an encouraging tone.\n  - End the response with a relevant follow up question.",
+      "response_context": "UMy context."
+    }
+  },
+  "jsonrpc": "2.0"
+}

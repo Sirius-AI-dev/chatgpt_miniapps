@@ -1,0 +1,23 @@
+Request:
+ {
+  "id": 1,
+  "method": "resources/list",
+  "jsonrpc": "2.0"
+}
+
+
+Response:
+{
+  "id": 1,
+  "result": {
+    "resources": [
+      {
+        "uri": "ui://widget/my_app.html",
+        "name": "My app",
+        "mimeType": "text/html+skybridge",
+        "description": "My first ChatGPT app."
+      }
+    ]
+  },
+  "jsonrpc": "2.0"
+}

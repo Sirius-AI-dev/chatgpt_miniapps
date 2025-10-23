@@ -1,0 +1,37 @@
+Request:
+{
+  "id": 2,
+  "method": "resources/read",
+  "params": {
+    "uri": "ui://widget/my_app.html"
+  },
+  "jsonrpc": "2.0"
+}
+
+
+Response:
+{
+  "id": 1,
+  "result": {
+    "contents": [
+      {
+        "uri": "ui://widget/vlogger-video.html",
+        "text": "\n<!doctype html>\n<html>\n  <head>\n    <meta charset=\"utf-8\" />\n    <title>My app</title>\n    <link rel=\"stylesheet\" href=\"https://example.com/main.css\">\n  </head>\n  <body>\n    <div id=\"chatgpt-app-root\"></div>\n    <script type=\"module\" src=\"https://example.com/main.js\"></script>\n  </body>\n</html>\n",
+        "_meta": {
+          "openai/widgetCSP": {
+            "connect_domains": [],
+            "resource_domains": [
+              "https://example.com",
+              "https://fonts.googleapis.com",
+              "https://fonts.gstatic.com"
+            ]
+          },
+          "openai/widgetDescription": "My app",
+          "openai/widgetPrefersBorder": true
+        },
+        "mimeType": "text/html+skybridge"
+      }
+    ]
+  },
+  "jsonrpc": "2.0"
+}

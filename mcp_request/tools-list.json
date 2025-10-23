@@ -1,0 +1,120 @@
+Request:
+ {
+  "id": 1,
+  "method": "tools/list",
+  "jsonrpc": "2.0"
+}
+
+
+Response:
+{
+  "id": 1,
+  "result": {
+    "tools": [
+      {
+        "name": "get_context_for_project",
+        "_meta": {
+          "openai/outputTemplate": "ui://widget/my_app.html",
+          "openai/widgetAccessible": true
+        },
+        "description": "Return relevant context based on the user's prompt. Use this context to build a clear response to user considering \"followup\" instruction.",
+        "inputSchema": {
+          "type": "object",
+          "required": [
+            "user_query"
+          ],
+          "properties": {
+            "user_query": {
+              "type": "string",
+              "description": "User's prompt"
+            },
+            "user_session_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Read \"user_session_id\" from the app \"toolOutput.app.user_session_id\". Send null if \"user_session_id\" is empty"
+            }
+          }
+        },
+        "outputSchema": {
+          "type": "object",
+          "required": [
+            "app",
+            "response_context",
+            "followup"
+          ],
+          "properties": {
+            "app": {
+              "type": "object",
+              "required": [
+                "user_session_id",
+                "picture_url"
+              ],
+              "properties": {
+                "picture_url": {
+                  "type": "string",
+                  "description": "Picture to display."
+                },
+                "user_session_id": {
+                  "type": "string",
+                  "description": "User's session ID to build a related context during the session."
+                }
+              }
+            },
+            "followup": {
+              "type": "string",
+              "description": "Instruction how to build a proper response. **Use this instruction when you prepare response.**"
+            },
+            "response_context": {
+              "type": "string",
+              "description": "Additional context to build a clear and concise response to user. Use this context as primary data to generate response."
+            }
+          }
+        }
+      },
+      {
+        "name": "click_event",
+        "_meta": {
+          "openai/widgetAccessible": true
+        },
+        "description": "Process a click event on the button. It responses with updated \"structuredContent\".",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "user_session_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Read \"user_session_id\" from the app \"toolOutput.app.user_session_id\". Send null if \"user_session_id\" is empty"
+            }
+          }
+        },
+        "outputSchema": {
+          "type": "object",
+          "properties": {
+            "app": {
+              "type": "object",
+              "required": [
+                "user_session_id",
+                "picture_url"
+              ],
+              "properties": {
+                "picture_url": {
+                  "type": "string",
+                  "description": "Picture of the Youtube video to display in the app window."
+                },
+                "user_session_id": {
+                  "type": "string",
+                  "description": "User's session ID to build a related context during the session."
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "jsonrpc": "2.0"
+}
