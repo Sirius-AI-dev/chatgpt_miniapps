@@ -2,7 +2,10 @@
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-This repository contains ready-to-use UI template to run an own ChatGPT app.
+This repository contains ready-to-use UI template to run an own ChatGPT app. It contains the following useful data:
+1. React template of the ChatGPT app
+2. Utils to interact with window.openai
+3. Examples of all required MCP requests and responses.
 
 ## Requirements
 
