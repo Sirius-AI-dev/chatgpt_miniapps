@@ -1,28 +1,28 @@
-# Apps SDK Examples Gallery
+# ChatGPT Apps UI Template Gallery
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-This repository showcases example UI components to be used with the Apps SDK, as well as example MCP servers that expose a collection of components as tools.
-It is meant to be used as a starting point and source of inspiration to build your own apps for ChatGPT.
+This repository contains ready-to-use UI template to run an own ChatGPT app.
 
-## MCP + Apps SDK overview
+## Requirements
 
-The Model Context Protocol (MCP) is an open specification for connecting large language model clients to external tools, data, and user interfaces. An MCP server exposes tools that a model can call during a conversation and returns results according to the tool contracts. Those results can include extra metadata—such as inline HTML—that the Apps SDK uses to render rich UI components (widgets) alongside assistant messages.
+You have to run own [MCP server](https://modelcontextprotocol.io/specification/2025-06-18), which supports the following methods:
 
-Within the Apps SDK, MCP keeps the server, model, and UI in sync. By standardizing the wire format, authentication, and metadata, it lets ChatGPT reason about your connector the same way it reasons about built-in tools. A minimal MCP integration for Apps SDK implements three capabilities:
+1. **initialize** – description of your server, with capabilities. Set { "scope": "project", "modes": ["chat"] }
+2. **notifications/initialized** – just response with http code = 200
+3. **tools/list** – declare your tools, with detailed "inputSchema" and "outputSchema". Set {"_meta": {"openai/widgetAccessible": true}} for all tools, and {"_meta": {"openai/outputTemplate": "ui://widget/my_app.html"}} for the main tool.
+1. **tools/call** – process a tool call. All data for UI should be sent in {"structuredContent": {...}}
+2. **resources/list** – declare your app. Set { "uri": "ui://widget/my_app.html", "mimeType": "text/html+skybridge" }
+3. **resources/templates/list** – the same as in resource/list
+4. **resources/read** - response with a simple HTML which loads .css and .js file from your resource. Declare all your domains with static data (js, images, etc) in {"_meta": {"openai/widgetCSP": {"resource_domains": [...]}}}
 
-1. **List tools** – Your server advertises the tools it supports, including their JSON Schema input/output contracts and optional annotations (for example, `readOnlyHint`).
-2. **Call tools** – When a model selects a tool, it issues a `call_tool` request with arguments that match the user intent. Your server executes the action and returns structured content the model can parse.
-3. **Return widgets** – Alongside structured content, return embedded resources in the response metadata so the Apps SDK can render the interface inline in the Apps SDK client (ChatGPT).
+Examples on requests and responses are in **mcp_request/**
 
-Because the protocol is transport agnostic, you can host the server over Server-Sent Events or streaming HTTP—Apps SDK supports both.
-
-The MCP servers in this demo highlight how each tool can light up widgets by combining structured payloads with `_meta.openai/outputTemplate` metadata returned from the MCP servers.
 
 ## Repository structure
 
-- `src/` – Source for each widget example.
-- `build/` – Generated HTML, JS, and CSS bundles after running the build step.
+- `src/` – Template source, with utils to manage window.openai
+- `mcp_request/` – Examples of requests and responses for MCP server
 - `build-all.mts` – Vite build orchestrator that produces hashed bundles for every widget entrypoint.
 
 ## Prerequisites
@@ -38,29 +38,31 @@ Clone the repository and install the workspace dependencies:
 pnpm install
 ```
 
-> Using npm or yarn? Install the root dependencies with your preferred client and adjust the commands below accordingly.
+## Setup the environment
+
+- `build_all.mts` – set correct "base" value in createConfig(). Assign it to your server with .js & .css files
+- `src/index.jsx` – set your app name in getElementById("<your-app-name>")
+
+## Build code
+
+Add any business-logic in src/app.jsx and any additional files.
 
 ## Build the components gallery
 
-The components are bundled into standalone assets that the MCP servers serve as reusable UI resources.
+The components are bundled into standalone assets appbuild/main.js and appbuild/main.css.
 
 ```bash
 pnpm run build
 ```
 
-This command runs `build-all.mts`, producing versioned `.html`, `.js`, and `.css` files inside `assets/`. Each widget is wrapped with the CSS it needs so you can host the bundles directly or ship them with your own server.
+Copy main.js and main.css to your server with **public https:// access**.
 
 
-## Run the MCP servers
+## Run app in ChatGPT
 
-MCP server is deployed at URL: https://api.sirius-dev.com/mcp/{app_name}
-
-Every tool response includes plain text content, structured JSON, and `_meta.openai/outputTemplate` metadata so the App can hydrate the matching widget.
-
-
-## Testing in ChatGPT
-
-To add these apps to ChatGPT, enable [developer mode](https://platform.openai.com/docs/guides/developer-mode), and add your apps in Settings > Connectors.
+1. Enable [developer mode](https://platform.openai.com/docs/guides/developer-mode)
+2. Add your app in Settings > Connectors: specify name of your app and endpoint to your MCP server
+3. Create a new Project, and add the app via "+" button.
 
 
 ## Next steps
