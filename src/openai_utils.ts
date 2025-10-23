@@ -2,20 +2,12 @@ import { useSyncExternalStore } from "react";
 import { useCallback, useEffect, useState, type SetStateAction } from "react";
 
 // Import OpenAI types
-import { 
+import {
   SET_GLOBALS_EVENT_TYPE,
   SetGlobalsEvent,
   type OpenAiGlobals,
   type DisplayMode,
-  type DeviceType,
-  type UserAgent,
-  type RequestDisplayMode,
-  type CallToolResponse,
-  type CallTool,
-  type Theme,
   type UnknownObject,
-  type SafeAreaInsets,
-  type SafeArea
 } from "./openai_types";
 
 
