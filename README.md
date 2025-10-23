@@ -8,15 +8,15 @@ This repository contains ready-to-use UI template to run an own ChatGPT app.
 
 You have to run own [MCP server](https://modelcontextprotocol.io/specification/2025-06-18), which supports the following methods:
 
-1. **initialize** – description of your server, with capabilities. Set { "scope": "project", "modes": ["chat"] }
+1. **initialize** – description of your server, with capabilities. Set `{ "scope": "project", "modes": ["chat"] }`
 2. **notifications/initialized** – just response with http code = 200
-3. **tools/list** – declare your tools, with detailed "inputSchema" and "outputSchema". Set {"_meta": {"openai/widgetAccessible": true}} for all tools, and {"_meta": {"openai/outputTemplate": "ui://widget/my_app.html"}} for the main tool.
-1. **tools/call** – process a tool call. All data for UI should be sent in {"structuredContent": {...}}
-2. **resources/list** – declare your app. Set { "uri": "ui://widget/my_app.html", "mimeType": "text/html+skybridge" }
+3. **tools/list** – declare your tools, with detailed "inputSchema" and "outputSchema". Set `{"_meta": {"openai/widgetAccessible": true}}` for all tools, and `{"_meta": {"openai/outputTemplate": "ui://widget/my_app.html"}}` for the main tool.
+1. **tools/call** – process a tool call. All data for UI should be sent in `{"structuredContent": {...}}`
+2. **resources/list** – declare your app. Set `{ "uri": "ui://widget/my_app.html", "mimeType": "text/html+skybridge" }`
 3. **resources/templates/list** – the same as in resource/list
-4. **resources/read** - response with a simple HTML which loads .css and .js file from your resource. Declare all your domains with static data (js, images, etc) in {"_meta": {"openai/widgetCSP": {"resource_domains": [...]}}}
+4. **resources/read** - response with a simple HTML which loads .css and .js file from your resource. Declare all your domains with static data (js, images, etc) in `{"_meta": {"openai/widgetCSP": {"resource_domains": [...]}}}`
 
-Examples on requests and responses are in **mcp_request/**
+Examples on requests and responses are in `mcp_request/`
 
 
 ## Repository structure
@@ -41,7 +41,7 @@ pnpm install
 ## Setup the environment
 
 - `build_all.mts` – set correct "base" value in createConfig(). Assign it to your server with .js & .css files
-- `src/index.jsx` – set your app name in getElementById("<your-app-name>")
+- `src/index.jsx` – set your app name in `getElementById("<your-app-name>")`
 
 ## Build code
 
@@ -64,12 +64,31 @@ Copy main.js and main.css to your server with **public https:// access**.
 2. Add your app in Settings > Connectors: specify name of your app and endpoint to your MCP server
 3. Create a new Project, and add the app via "+" button.
 
-
 ## Next steps
 
 - Create your own components and add them to the gallery: drop new entries into `src/` and they will be picked up automatically by the build script.
 - Expand business-logic on MCP server
 
+
+## Useful functions in src/openai_utils.jsx
+1. `useOpenAiGlobal (<key name>)` - read any key from window.openai.globals. Supported keys:
+```json
+ theme: dark | light;
+ userAgent: { "device': "mobile" | "tablet" | "desktop" }
+ locale: <5-letters>;
+ maxHeight: number;
+ displayMode: "pip" | "inline" | "fullscreen";
+ safeArea: SafeArea;
+ toolInput: {};
+ toolOutput: {};
+ toolResponseMetadata: {}
+ widgetState: {}
+```
+2. `setOpenAiGlobal (<key name>, <value>)` - update any key in window.openai.globals.
+3. `callTool (<tool name>, <json params>)` - run an MCP tool, and store response in globals.toolOutput
+4. `sendMessage(<message>)` - send a message to chatGPT chatbot
+5. `setDisplayMode("pip" | "inline" | "fullscreen")`
+6. `openExternalURL(<url>)` - open an external URL in a new tab
 
 ## License
 
