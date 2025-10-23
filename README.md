@@ -72,15 +72,15 @@ Copy main.js and main.css to your server with **public https:// access**.
 
 ## Useful functions in src/openai_utils.jsx
 1. `useOpenAiGlobal (<key name>)` - read any key from window.openai.globals. Supported keys:
-```json
- theme: dark | light;
+```
+ theme: dark | light
  userAgent: { "device': "mobile" | "tablet" | "desktop" }
- locale: <5-letters>;
- maxHeight: number;
- displayMode: "pip" | "inline" | "fullscreen";
- safeArea: SafeArea;
- toolInput: {};
- toolOutput: {};
+ locale: <5-letters>
+ maxHeight: number
+ displayMode: "pip" | "inline" | "fullscreen"
+ safeArea: SafeArea
+ toolInput: {}
+ toolOutput: {}
  toolResponseMetadata: {}
  widgetState: {}
 ```
