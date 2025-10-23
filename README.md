@@ -22,7 +22,7 @@ The MCP servers in this demo highlight how each tool can light up widgets by com
 ## Repository structure
 
 - `src/` – Source for each widget example.
-- `assets/` – Generated HTML, JS, and CSS bundles after running the build step.
+- `build/` – Generated HTML, JS, and CSS bundles after running the build step.
 - `build-all.mts` – Vite build orchestrator that produces hashed bundles for every widget entrypoint.
 
 ## Prerequisites
@@ -50,11 +50,6 @@ pnpm run build
 
 This command runs `build-all.mts`, producing versioned `.html`, `.js`, and `.css` files inside `assets/`. Each widget is wrapped with the CSS it needs so you can host the bundles directly or ship them with your own server.
 
-To iterate locally, you can also launch the Vite dev server:
-
-```bash
-pnpm run dev
-```
 
 ## Run the MCP servers
 
